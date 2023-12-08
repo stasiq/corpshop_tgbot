@@ -134,7 +134,8 @@ class Interaction extends WebhookHandler
     public function add($chat_id)
     {
         $chat_id_current = json_encode($this->message->from()->id());
-        if ($chat_id_current == 441651507) {
+        $user = DB::table('user_profiles', $chat_id_current)->first();
+        if ($user->admin) {
             $user = DB::table('user_profiles', $chat_id)->first();
             $value = $user->balance + 500;
             DB::table('user_profiles')
